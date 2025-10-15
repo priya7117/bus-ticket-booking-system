@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bus Ticket Booking</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+    h2, h3 { color: #333; }
+    input, select, button { margin: 5px 0; padding: 5px; width: 200px; }
+    #studentInfo, #ticketInfo {
+      background: #fff; padding: 15px; margin-top: 15px; border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    #ticketInfo p { border-bottom: 1px dashed #ccc; padding: 5px 0; }
+    .book-button { 
+      background-color: rgb(249, 49, 232); 
+      color: white; 
+      border: none; 
+      padding: 8px 12px; 
+      border-radius: 8px; 
+      cursor: pointer; 
+    }
+    .book-button:hover { opacity: 0.7; }
+  </style>
+</head>
+<body>
+
+  <h2>Bus Ticket Booking</h2>
+
+  <!-- Student Info Section -->
+  <div id="studentInfo"></div>
+
+  <!-- Ticket Booking Form -->
+  <h3>Book Your Ticket</h3>
+  From: <input id="from" type="text" placeholder="From"><br>
+  To: <input id="to" type="text" placeholder="To"><br>
+  Date: <input id="date" type="date"><br>
+  Seat: <input id="seat" type="text" placeholder="Seat Number"><br>
+  <button type="button" class="book-button" onclick="bookTicket()">Book Ticket</button>
+
+  <!-- Booked Tickets Display -->
+  <div id="ticketInfo"></div>
+
+  <script>
+    // Load student info from localStorage
+    window.onload = function() {
+      const student = JSON.parse(localStorage.getItem('student'));
+
+      if(student){
+        document.getElementById('studentInfo').innerHTML = `
+          <h3>Student Info</h3>
+          <p><b>Name:</b> ${student.name}</p>
+          <p><b>Register No:</b> ${student.register}</p>
+          <p><b>Year:</b> ${student.year}</p>
+          <p><b>Department:</b> ${student.department}</p>
+          <p><b>Home Town:</b> ${student.hometown}</p>
+        `;
+      } else {
+        document.getElementById('studentInfo').innerHTML = `
+          <p>No student info found. Please register first.</p>
+        `;
+      }
+
+      // Load already booked tickets
+      displayTickets();
+    }
+
+    // Function to book ticket
+    function bookTicket() {
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const date = document.getElementById('date').value;
+      const seat = document.getElementById('seat').value;
+
+      if(!from || !to || !date || !seat){
+        alert('Please fill all fields');
+        return;
+      }
+
+      // Generate unique Ticket ID
+      const ticketId = 'T' + Math.floor(Math.random() * 100000);
+
+      const paymentStatus = 'Paid';
+      const ticket = { ticketId, from, to, date, seat, paymentStatus };
+
+      // Save in localStorage
+      let bookedTickets = JSON.parse(localStorage.getItem('bookedTickets')) || [];
+      bookedTickets.push(ticket);
+      localStorage.setItem('bookedTickets', JSON.stringify(bookedTickets));
+
+      // Refresh display
+      displayTickets();
+
+      // Clear form fields
+      document.getElementById('from').value = '';
+      document.getElementById('to').value = '';
+      document.getElementById('date').value = '';
+      document.getElementById('seat').value = '';
+    }
+
+    // Display booked tickets
+    function displayTickets() {
+      const bookedTickets = JSON.parse(localStorage.getItem('bookedTickets')) || [];
+      if (bookedTickets.length === 0) {
+        document.getElementById('ticketInfo').innerHTML = '<p>No tickets booked yet.</p>';
+        return;
+      }
+
+      let html = '<h3>Booked Tickets</h3>';
+      bookedTickets.forEach((t) => {
+        html += `
+          <p>
+            <b>Ticket ID:</b> ${t.ticketId} | 
+            <b>${t.from}</b> → <b>${t.to}</b> | 
+            <b>Date:</b> ${t.date} | 
+            <b>Seat:</b> ${t.seat} | 
+            <b>Payment:</b> ${t.paymentStatus}
+          </p>
+        `;
+      });
+      document.getElementById('ticketInfo').innerHTML = html;
+    }
+  </script>
+
+</body>
+</html>

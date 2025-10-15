@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 50px;
+    }
+    .payment-box {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 350px;
+      margin: auto;
+    }
+    img {
+      width: 200px;
+      margin: 20px 0;
+    }
+    input[type="file"] {
+      margin: 15px 0;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="payment-box">
+    <h2>Bus Ticket Payment</h2>
+    <p>Scan the QR code below to make your payment</p>
+
+    <!-- QR Code -->
+<img src="https://api.qrserver.com/v1/create-qr-code/?data=SamplePayment&size=200x200" alt="QR Code">
+
+    <p>After payment, upload your payment screenshot below:</p>
+    <input type="file" id="screenshot" accept="image/*">
+    <br>
+    <button onclick="goToTicket()">Submit Payment</button>
+  </div>
+
+  <script>
+    function goToTicket() {
+      const file = document.getElementById('screenshot').files.length;
+      if (file === 0) {
+        alert("Please upload your payment screenshot!");
+      } else {
+        alert("Payment confirmed! Redirecting to your ticket...");
+        window.location.href = "ticket.html";
+      }
+    }
+  </script>
+
+</body>
+</html>

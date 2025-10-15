@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Details & Payment</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f8f8f8; text-align: center; }
+    .bus-box { background-color: white; width: 400px; margin: 30px auto; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    h2 { color: #e91e63; }
+    p { font-size: 18px; color: #333; line-height: 1.5; }
+     .select-button {
+      background-color: #4CAF50; color: white; border: none;
+      padding: 10px 20px; border-radius: 5px; cursor: pointer;
+    }
+    .select-button:hover { background-color: #45a049; }
+  </style>
+</head>
+<body>
+
+  <h1>🚌 College Festival Bus Booking</h1>
+
+  <!-- BUS 1 -->
+  <div class="bus-box">
+    <h2>Bus 1 – Salem Route</h2>
+    <p><b>Departure Time:</b> 4:00 PM</p>
+    <p><b>In-Charge:</b> Mr. Ravi (Phone – 9876543210)</p>
+    <p><b>Fare:</b> ₹350</p>
+    <button class="select-button" onclick="selectBus('Salem Route', 350)">Select Bus</button>
+  </div>
+  <div class="bus-box">
+    <h2>Bus 2 – Madurai Route</h2>
+    <p><b>Departure Time:</b> 3:30 PM</p>
+    <p><b>In-Charge:</b> Ms. Priya (Phone – 9876501234)</p>
+    <p><b>Fare:</b> ₹400</p>
+      <button class="select-button" onclick="selectBus('Madurai Route', 400)">Select Bus</button>
+  </div>
+
+  <!-- BUS 3 -->
+  <div class="bus-box">
+    <h2>Bus 3 – Trichy Route</h2>
+    <p><b>Departure Time:</b> 4:30 PM</p>
+    <p><b>In-Charge:</b> Mr. Karthik (Phone – 9876517890)</p>
+    <p><b>Fare:</b> ₹300</p>
+    <button class="select-button" onclick="selectBus('Trichy Route', 300)">Select Bus</button>
+
+   <script>
+    function selectBus(route, fare) {
+      localStorage.setItem('selectedBus', JSON.stringify({ route, fare }));
+      window.location.href = "payment.html";
+    }
+  </script>
+
+</body>
+</html>
