@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Project Data</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      text-align: center;
+      padding: 50px;
+    }
+    button {
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Reset All Project Data</h1>
+  <p>This will delete all registered students and booked tickets.</p>
+
+  <button onclick="resetData()">Clear All Data</button>
+
+  <script>
+    function resetData() {
+      if(confirm("Are you sure you want to delete ALL data?")) {
+        localStorage.removeItem('students');      // Deletes all students
+        localStorage.removeItem('bookedTickets'); // Deletes all tickets
+        localStorage.removeItem('selectedBus');   // Deletes bus selection
+        alert("All data cleared! You can now re-enter students.");
+        location.reload(); // Refresh page
+      }
+    }
+  </script>
+
+</body>
+</html>

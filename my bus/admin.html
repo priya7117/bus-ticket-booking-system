@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+    h1 { color: #e91e63; text-align: center; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+    table, th, td { border: 1px solid #ccc; }
+    th, td { padding: 10px; text-align: left; }
+    th { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+
+  <h1>Admin Dashboard</h1>
+
+  <h2>Registered Students</h2>
+  <table id="studentsTable">
+    <tr>
+      <th>Name</th>
+      <th>Register No</th>
+      <th>Year</th>
+      <th>Department</th>
+      <th>Home Town</th>
+    </tr>
+  </table>
+
+  <h2>Booked Tickets</h2>
+  <table id="ticketsTable">
+    <tr>
+      <th>Ticket ID</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Date</th>
+      <th>Seat</th>
+      <th>Payment</th>
+    </tr>
+  </table>
+
+  <script>
+    // Load student info from localStorage
+    const student = JSON.parse(localStorage.getItem('student'));
+    if (student) {
+      const table = document.getElementById('studentsTable');
+      const row = table.insertRow();
+      row.insertCell(0).innerText = student.name;
+      row.insertCell(1).innerText = student.register;
+      row.insertCell(2).innerText = student.year;
+      row.insertCell(3).innerText = student.department;
+      row.insertCell(4).innerText = student.hometown;
+    }
+
+    // Load booked tickets
+    const tickets = JSON.parse(localStorage.getItem('bookedTickets')) || [];
+    const ticketTable = document.getElementById('ticketsTable');
+    tickets.forEach(t => {
+      const row = ticketTable.insertRow();
+      row.insertCell(0).innerText = t.ticketId;
+      row.insertCell(1).innerText = t.from;
+      row.insertCell(2).innerText = t.to;
+      row.insertCell(3).innerText = t.date;
+      row.insertCell(4).innerText = t.seat;
+      row.insertCell(5).innerText = t.paymentStatus;
+    });
+  </script>
+
+</body>
+</html>
